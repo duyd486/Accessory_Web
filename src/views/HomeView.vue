@@ -199,14 +199,25 @@ export default {
 
 <style scoped>
 :root {
-    --primary: #3449ca;
+    --primary: #5b3df5;
+    --primary-light: #ede9ff;
+    --primary-soft: #f5f2ff;
+    --text-dark: #151515;
+    --text-gray: #777;
 }
 
 body {
-    font-family: 'Outfit', Arial, sans-serif;
-    background: #fff;
+    background: linear-gradient(
+        to bottom,
+        #f5f2ff,
+        #ffffff 25%
+    );
 }
-
+.section-header h4 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #151515;
+}
 .header-top {
     background-image: url('../assets/campain-bar-1.jpg');
     text-align: center;
@@ -257,14 +268,16 @@ body {
     flex: 1;
     display: flex;
     align-items: center;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid #eee;
+    background: rgba(255,255,255,0.9);
+    border-radius: 18px;
+    border: 1px solid rgba(230,230,230,0.8);
+    backdrop-filter: blur(10px);
+    box-shadow:
+        0 10px 25px rgba(91, 61, 245, 0.08);
 }
 
 .search-box input {
-    height: 60px;
+    height: 50px;
     border: 1px solid #eaeaea;
     outline: none;
     flex: 1;
@@ -290,8 +303,8 @@ body {
 }
 
 .btn-search {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -644,14 +657,23 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-radius: 8px;
+    border-radius: 24px;
     overflow: hidden;
-    text-align: left;
-    padding: 16px;
-    background: #fff;
+    padding: 24px;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow:
+        0 10px 30px rgba(91, 61, 245, 0.08);
+    transition: all 0.3s ease;
     height: 100%;
 }
+.best-seller-item:hover {
+    transform: translateY(-6px);
 
+    box-shadow:
+        0 18px 40px rgba(91, 61, 245, 0.18);
+}
 .best-seller-item img {
     width: 100%;
     height: 200px;
@@ -688,12 +710,20 @@ body {
 .best-seller-item a {
     display: block;
     text-align: center;
-    font-weight: 600;
-    font-size: 14px;
-    background-color: rgba(0, 0, 0, 0.05);
-    padding: 6px 0;
-    border-radius: 4px;
+    background: #5b3df5;
+    color: white;
+    padding: 12px 0;
+    border-radius: 12px;
     text-decoration: none;
+    font-weight: 600;
+
+    transition: all 0.25s ease;
+    box-shadow:
+        0 8px 20px rgba(91, 61, 245, 0.2);
+}
+.best-seller-item a:hover {
+    background: #4c2ff0;
+    transform: translateY(-2px);
 }
 
 .best-product-thumbnail img {
@@ -708,6 +738,14 @@ body {
 
 
 /* sản phẩm + cate */
+.section-header a {
+    color: #5b3df5 !important;
+    font-weight: 600;
+    text-decoration: none;
+}
+.section-header a:hover {
+    opacity: 0.8;
+}
 .col-md-2_4 {
     flex: 0 0 20%;
     max-width: 20%;
@@ -722,16 +760,24 @@ body {
 
 .product-card {
     position: relative;
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    overflow: visible;
+    background: rgba(255,255,255,0.9);
+    border-radius: 24px;
+    border: 1px solid rgba(230,230,230,0.8);
+    backdrop-filter: blur(10px);
     transition: all 0.3s ease;
     z-index: 1;
-    padding: 15px;
+    padding: 20px;
     text-align: center;
+    overflow: hidden;
+    box-shadow:
+        0 10px 25px rgba(91, 61, 245, 0.06);
 }
+.product-card:hover {
+    transform: translateY(-8px);
 
+    box-shadow:
+        0 20px 40px rgba(91, 61, 245, 0.18);
+}
 /* hình ảnh */
 .product-card img {
     width: 100%;
@@ -807,16 +853,24 @@ body {
 
 /* ==== CATEGORIES ==== */
 .category-item {
+    background: white;
+    border-radius: 24px;
+    padding: 24px 16px;
     transition: all 0.3s ease;
-    cursor: pointer;
+    box-shadow:
+        0 8px 24px rgba(91, 61, 245, 0.06);
 }
-
+.category-item:hover {
+    transform: translateY(-6px);
+    box-shadow:
+        0 16px 32px rgba(91, 61, 245, 0.14);
+}
 .category-item img {
     width: 170px;
     /* tăng từ 140px lên 170px */
     height: 170px;
     object-fit: cover;
-    border: 3px solid #f2f2f2;
+    border: 4px solid #f2f2f2;
     /* nhẹ nhàng cho viền sáng */
     transition: filter 0.3s ease;
 }

@@ -1,47 +1,84 @@
+<template>
+    <div class="signin-container">
+        <div class="signin-card">
+
+            <div class="signin-banner">
+                <div class="overlay"></div>
+
+                <div class="banner-content">
+
+                    <div class="banner-text">
+                        <p>Accessory Customer Website</p>
+                        <h2>
+                            Khám phá không gian mua sắm dành riêng cho bạn.
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL -->
+            <div class="signin-form-wrapper">
+
+                <h2 class="title">Đăng nhập</h2>
+
+                <p class="subtitle">
+                    Chào mừng bạn quay trở lại! 
+                    Mọi nhu cầu mua sắm của bạn đều sẽ được gói gọn trong một nơi.
+                </p>
+                
+                <form class="form">
+                    <div class="input-group">
+                        <label>Nhập Email của bạn</label>
+                        <input
+                            type="email"
+                            v-model="email"
+                            required
+                        />
+                    </div>
+
+                    <div class="input-group">
+                        <label>Nhập mật khẩu</label>
+                        <input
+                            type="password"
+                            v-model="password"
+                            required
+                        />
+                    </div>
+
+                    <button
+                        v-on:click="login()"
+                        type="submit"
+                        class="btn-primary"
+                        :disabled="loading"
+                    >
+                        <span v-if="loading">Đang đăng nhập...</span>
+                        <span v-else>Đăng nhập</span>
+                    </button>
+                </form>
+
+                <div class="divider">
+                    <span>hoặc tiếp tục với</span>
+                </div>
+
+                <div class="google-login">
+                    <GoogleLoginComponent :title="'Đăng nhập'" />
+                </div>
+
+                <p class="footer-text">
+                    Bạn chưa có tài khoản?
+                    <button @click="navigateToSignup">Đăng kí ngay</button>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</template>
+
 <script setup>
 import GoogleLoginComponent from '@/components/GoogleLoginComponent.vue'
 import { apiHelper } from '@/helpers/axios';
 import HomeView from './HomeView.vue';
 </script>
-
-<template>
-    <div class="signin-container">
-        <div class="signin-card">
-            <img src="@/assets/MyLogo.jpg" alt="My Logo" class="logo" />
-
-            <h2 class="title">Đăng nhập tài khoản</h2>
-            <p class="subtitle">Chào mừng trở lại! Vui lòng đăng nhập để tiếp tục.</p>
-
-            <form class="form">
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" v-model="email" placeholder="Nhập email của bạn" required />
-                </div>
-
-                <div class="input-group">
-                    <label>Mật khẩu</label>
-                    <input type="password" v-model="password" placeholder="Nhập mật khẩu" required />
-                </div>
-
-                <button v-on:click="login()" type="submit" class="btn-primary" :disabled="loading">
-                    <span v-if="loading">Đang đăng nhập...</span>
-                    <span v-else>Đăng nhập</span>
-                </button>
-            </form>
-
-            <div class="divider">
-                <span>Hoặc</span>
-            </div>
-
-            <GoogleLoginComponent :title="'Đăng nhập'" />
-
-            <p class="footer-text">
-                Chưa có tài khoản?
-                <button @click="navigateToSignup">Đăng ký ngay</button>
-            </p>
-        </div>
-    </div>
-</template>
 
 <script>
 export default {
@@ -63,8 +100,8 @@ export default {
                 const formData = new FormData();
                 formData.append('email', this.email);
                 formData.append('password', this.password);
+
                 apiHelper.post('/login', formData).then((res) => {
-                    // console.log(res);
                     if (res.status == 200) {
                         sessionStorage.setItem('token', res.data.data.token);
                         this.$router.push('/home');
@@ -73,6 +110,7 @@ export default {
                     console.log(error);
                     this.loading = false;
                 });
+
             } catch (error) {
                 console.log(error);
             }
@@ -83,107 +121,167 @@ export default {
 
 <style scoped>
 .signin-container {
+    width: 100%;
+    min-height: 100vh;
+    background: #f3efff;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
+    padding: 30px;
     font-family: 'Segoe UI', sans-serif;
 }
 
 .signin-card {
-    background: #ffffff;
-    width: 600px;
-    max-height: 90vh;
-    border-radius: 16px;
-    padding: 60px 60px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    width: 1100px;
+    min-height: 680px;
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    box-shadow:
+        0 15px 40px rgba(116, 84, 255, 0.15);
+}
+
+/* LEFT SIDE */
+
+.signin-banner {
+    width: 45%;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at top left,
+            rgba(255,255,255,0.9),
+            rgba(255,255,255,0) 25%),
+
+        radial-gradient(circle at center,
+            rgba(79, 70, 229, 0.95),
+            rgba(124, 58, 237, 0.9),
+            rgba(221, 214, 254, 0.8));
+
+    display: flex;
+    align-items: flex-end;
+    padding: 40px;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(10px);
+}
+
+.banner-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+
+.banner-text p {
+    color: rgba(255,255,255,0.85);
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.banner-text h2 {
+    color: white;
+    font-size: 36px;
+    line-height: 1.25;
+    font-weight: 700;
+    max-width: 360px;
+}
+
+
+.signin-form-wrapper {
+    width: 55%;
+    padding: 70px 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.logo {
-    width: 50px;
-    margin: 0 auto 5px;
-    display: block;
-}
-
 .title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #222;
-    margin-bottom: 8px;
+    font-size: 38px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 12px;
 }
 
 .subtitle {
+    color: #777;
     font-size: 15px;
-    color: #666;
-    margin-bottom: 35px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 430px;
 }
 
 .form {
-    text-align: left;
-    flex-grow: 1;
+    width: 100%;
 }
 
 .input-group {
-    margin-bottom: 22px;
+    margin-bottom: 24px;
 }
 
 .input-group label {
     display: block;
     font-size: 14px;
-    color: #444;
-    margin-bottom: 6px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #222;
 }
 
 .input-group input {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    width: 500px;
+    height: 52px;
+    border: 1px solid #ddd;
+    padding: 16px;
     font-size: 14px;
-    transition: border-color 0.2s ease;
-    background-color: #fff;
+    transition: all 0.2s ease;
+    background: #fff;
+    border-radius: 10px !important;
 }
 
 .input-group input:focus {
-    border-color: #4e4376;
     outline: none;
+    border-color: #6b4eff;
+    box-shadow: 0 0 0 4px rgba(107, 78, 255, 0.1);
+    border-radius: 10px !important;
 }
 
 .btn-primary {
     width: 100%;
-    padding: 13px;
-    background-color: #435776;
-    color: #fff;
-    font-size: 15px;
+    height: 52px;
     border: none;
-    border-radius: 6px;
+    border-radius: 10px;
+    background: #5b3df5;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: 0.2s ease;
+    margin-top: 10px;
+
+    box-shadow:
+        0 10px 20px rgba(91, 61, 245, 0.25);
 }
 
 .btn-primary:hover {
-    background-color: #2b5876;
+    background: #4c2ff0;
+    transform: translateY(-1px);
 }
 
 .btn-primary:disabled {
-    background-color: #aaa;
+    opacity: 0.7;
     cursor: not-allowed;
 }
 
 .divider {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 28px 0;
-    color: #888;
+    gap: 12px;
+    margin: 35px 0 25px;
+    color: #999;
     font-size: 13px;
-    position: relative;
 }
 
 .divider::before,
@@ -191,23 +289,56 @@ export default {
     content: '';
     flex: 1;
     height: 1px;
-    background: #ccc;
-    margin: 0 10px;
+    background: #e4e4e4;
+}
+
+.google-login {
+    width: 100%;
 }
 
 .footer-text {
-    margin-top: 25px;
-    font-size: 13px;
-    color: #666;
+    margin-top: 28px;
+    text-align: center;
+    color: #888;
+    font-size: 14px;
 }
 
 .footer-text button {
-    background: transparent;
     border: none;
+    background: transparent;
+    color: #5b3df5;
+    font-weight: 600;
     cursor: pointer;
 }
 
 .footer-text button:hover {
     text-decoration: underline;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .signin-card {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .signin-banner {
+        width: 100%;
+        min-height: 300px;
+    }
+
+    .signin-form-wrapper {
+        width: 100%;
+        padding: 50px 35px;
+    }
+
+    .banner-text h2 {
+        font-size: 28px;
+    }
+
+    .title {
+        font-size: 30px;
+    }
 }
 </style>

@@ -11,7 +11,7 @@
             </div>
         </section>
 
-        <section class="section-our-story py-5" style="background-color: #FFFDDB;">
+        <section class="section-our-story py-5" style="background-color: #f8f7ff;">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-3">
@@ -88,7 +88,7 @@
 
         <section class="section-timeline py-3">
             <div class="containerr">
-                <div class="row justify-content-center" style="background-color: #E3FFF4;">
+                <div class="row justify-content-center" style="background-color: #f8f7ff;">
                     <div class="row justify-content-center history" style="padding-top: 50px;">
                         <div class="col-md-3">
                             <h3 class="section-title-medium" style="margin-top: 3rem;">Victory store</h3>
@@ -182,11 +182,11 @@
 
         <section class="section-purchase py-5 text-center" style="background-color: #f4f8fb;">
             <div class="container py-5">
-                <h3 class="section-title-medium">Mua Giao diện</h3>
+                <h3 class="section-title-medium">Mua hàng ngay!</h3>
                 <h2 class="section-title-large mt-2">
-                    Mua Giao diện Victory ngay để mọi việc dễ dàng hơn
+                    Mua phụ kiện tại Victory để nâng tầm trải nghiệm công nghệ của bạn
                 </h2>
-                <button class="btn-purchase mt-4">Mua Giao diện</button>
+                <button class="btn-purchase mt-4">Mua hàng</button>
             </div>
         </section>
 
@@ -230,10 +230,10 @@ import { ref } from 'vue'
 import { apiHelper } from '@/helpers/axios'
 
 const executiveTeam = ref([
-    { name: 'SangPT', role: 'Đồng Sáng lập' },
+    { name: 'DuyDT', role: 'Đồng Sáng lập' },
     { name: 'NgocNMT', role: 'Đồng Sáng lập & Giám đốc Điều hành' },
     { name: 'HieuPNT', role: 'Quản lý Phát triển' },
-    { name: 'MaiPTT', role: 'Quản lý Dịch vụ Khách hàng' },
+    { name: 'TrangTV', role: 'Quản lý Dịch vụ Khách hàng' },
 ]);
 
 const investors = ref([
@@ -260,12 +260,13 @@ export default {
 <style scoped>
 /* Giữ nguyên phần style đã tối ưu để đảm bảo giao diện đẹp và responsive */
 .main-content-container {
-    font-family: 'Outfit', Arial, sans-serif;
-    color: #333;
+    font-family: 'Segoe UI', sans-serif;
+    color: #151515;
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1200px;
+
 }
 
 .containerr {
@@ -275,18 +276,18 @@ export default {
 
 /* --- Typography and General Styles --- */
 .section-title-large {
-    font-size: 2.2rem;
+    font-size: 2.8rem;
     font-weight: 700;
     line-height: 1.2;
-    color: #1a1a1a;
+    color: #151515;
 }
 
 .section-title-medium {
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color: #6c757d;
-    letter-spacing: 1px;
+    color: #5b3df5;
 }
 
 /* --- Section Top Banner (Great Design) --- */
@@ -297,9 +298,11 @@ export default {
 
 .banner-image-wrapper {
     height: 430px;
-    background-color: #f0f0f0;
-    border-radius: 8px;
+    border-radius: 28px;
     overflow: hidden;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.08);
 }
 
 /* --- Section Our Story --- */
@@ -322,7 +325,7 @@ export default {
 
 .icon-box {
     font-size: 2.5rem;
-    color: #00d084;
+    color: #5b3df5;
 }
 
 .item-title {
@@ -378,7 +381,15 @@ export default {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #00d084;
+    background:
+        linear-gradient(
+            135deg,
+            #5b3df5,
+            #7c3aed
+        );
+
+    box-shadow:
+        0 6px 16px rgba(91,61,245,.25);
 }
 
 .timeline-dot::after {
@@ -418,7 +429,8 @@ export default {
     height: 100px;
     margin: 0 auto;
     background-color: #f0f0f0;
-    border-radius: 50%;
+    border-radius: 24px;
+
 }
 
 .avatar-placeholder-sm {
@@ -426,7 +438,7 @@ export default {
     height: 70px;
     margin: 0 auto;
     background-color: #f0f0f0;
-    border-radius: 50%;
+    border-radius: 24px;
 }
 
 .member-name,
@@ -452,17 +464,27 @@ export default {
 }
 
 .btn-purchase {
-    background-color: #343a40;
+    background:
+        linear-gradient(
+            135deg,
+            #5b3df5,
+            #7c3aed
+        );
+
     color: white;
-    padding: 12px 30px;
+    padding: 14px 32px;
     border: none;
-    border-radius: 4px;
+    border-radius: 16px;
     font-weight: 600;
-    transition: background-color 0.3s;
+    transition: all .25s ease;
+
+    box-shadow:
+        0 10px 25px rgba(91, 61, 245, 0.22);
 }
 
 .btn-purchase:hover {
-    background-color: #1a1a1a;
+    transform: translateY(-3px);
+    opacity: .92;
 }
 
 /* --- Footer Contact Section --- */
@@ -472,7 +494,7 @@ export default {
 
 .contact-icon {
     font-size: 2rem;
-    color: #00d084;
+    color: #5b3df5;
 }
 
 .contact-title {

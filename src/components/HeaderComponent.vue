@@ -66,7 +66,6 @@
                 <a href="#" class="shop-category">
                     <i class="bi bi-grid-3x3-gap-fill"></i>
                     <div v-on:click="goToAboutUs()" class="title">Giới thiệu</div>
-                    <i class="bi bi-chevron-down ms-auto text-muted"></i>
                 </a>
 
                 <nav class="menu-nav">
@@ -179,46 +178,63 @@ export default {
 
 <style scoped>
 :root {
-    --primary: #3449ca;
+    --primary: #5b3df5;
+    --primary-light: #ede9ff;
+    --primary-soft: #f5f2ff;
+    --text-dark: #151515;
 }
 
 body {
-    font-family: 'Outfit', Arial, sans-serif;
+    font-family: 'Outfit', sans-serif;
     background: #fff;
 }
 
 .header-top {
-    background-image: url('../assets/campain-bar-1.jpg');
+    background:
+        linear-gradient(
+            135deg,
+            #5b3df5,
+            #7c3aed
+        );
     text-align: center;
-    padding: 13px 0;
+    padding: 14px 0;
     font-size: 13px;
     font-weight: 600;
-    color: black;
+    color: white;
+    letter-spacing: 0.3px;
 }
 
 .header-top a {
-    text-decoration: underline;
-    color: #222;
+    color: white;
     font-weight: 700;
+    margin-left: 4px;
 }
 
 .main-header {
-    background: #fff;
-    padding: 20px 0;
+    background:
+        rgba(255,255,255,0.75);
+    backdrop-filter: blur(14px);
+    padding: 24px 0;
+    border-bottom:
+        1px solid rgba(230,230,230,0.7);
+    position: relative;
+    z-index: 10000;
 }
 
 .container-custom {
     max-width: 1250px;
     margin: 0 auto;
-    padding: 0 50px;
+    padding: 0 10px;
 }
 
 .navbar-brand {
     font-weight: 800;
-    font-size: 28px;
+    font-size: 30px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    color: #151515;
+    transition: all 0.25s ease;
 }
 
 .navbar-brand small {
@@ -238,27 +254,29 @@ body {
     flex: 1;
     display: flex;
     align-items: center;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid #eee;
+    height: 50px;
+    background:
+        rgba(255,255,255,0.9);
+    border-radius: 14px;
+    border:
+        1px solid rgba(230,230,230,0.8);
+    backdrop-filter: blur(10px);
+    box-shadow:
+        0 10px 30px rgba(91, 61, 245, 0.08);
+    transition: all 0.25s ease;
+    overflow: hidden;
 }
 
 .search-box input {
-    height: 60px;
-    border: 1px solid #eaeaea;
+    height: 100%;
+    border: none;
     outline: none;
     flex: 1;
-    padding: 10px 14px;
+    padding: 0 20px;
     font-size: 15px;
-    border-radius: 6px;
-    background-color: #fff;
-    box-shadow:
-        0 2px 5px rgba(0, 0, 0, 0.05),
-        0 4px 8px rgba(0, 0, 0, 0.04),
-        2px 0 4px rgba(0, 0, 0, 0.025),
-        -2px 0 4px rgba(0, 0, 0, 0.025);
-    transition: all 0.2s ease;
+    background: transparent;
+    box-shadow: none;
+    color: #151515;
 }
 
 .search-box input:focus {
@@ -271,16 +289,24 @@ body {
 }
 
 .btn-search {
-    width: 60px;
-    height: 60px;
-    border-radius: 6px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--primary);
+    background:
+        linear-gradient(
+            135deg,
+            #5b3df5,
+            #7c3aed
+        );
     color: #fff;
     border: none;
-    transition: 0.2s;
+    margin-right: 4px;
+    transition: all 0.25s ease;
+    box-shadow:
+        0 8px 20px rgba(91, 61, 245, 0.22);
 }
 
 .btn-search:hover {
@@ -289,41 +315,54 @@ body {
 
 /* shop-category */
 .menu-row {
-    border-bottom: 1px solid #eaeaea;
-    background: #fff;
+    background:
+        rgba(255,255,255,0.82);
+    backdrop-filter: blur(12px);
+    border-bottom:
+        1px solid rgba(230,230,230,0.7);
+    position: relative;
+    z-index: 1000;
 }
 
 .menu-row .container-custom {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 10px;
     position: relative;
-    padding: 0 20px;
+  
 }
 
 /* Shop Category (Giới thiệu) */
 .shop-category {
-    height: 60px;
-    width: 220px;
+    height: 50px;
+    min-width: 130px;
+    width:auto;
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 0 16px;
-    border-radius: 6px;
-    background: #fff;
-    border: 1px solid #eaeaea;
-    transition: all 0.3s ease;
-    color: #111;
+    padding: 0 18px;
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            135deg,
+            #5b3df5,
+            #7c3aed
+        );
+    color: white;
     text-decoration: none;
     position: relative;
-    margin-left: 30px;
+    
+    box-shadow:
+        0 12px 28px rgba(91, 61, 245, 0.22);
+    transition: all 0.3s ease;
 }
 
 /* Giữ hover nhẹ, không gạch chân, không đổi màu */
 .shop-category:hover {
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
-    color: black;
+    transform: translateY(-3px);
+    box-shadow:
+        0 18px 35px rgba(91, 61, 245, 0.3);
+    color: white;
 }
 
 /* Bỏ hoàn toàn hiệu ứng gạch chân */
@@ -331,24 +370,26 @@ body {
     display: none;
 }
 
-/* MENU CHÍNH */
+/* MENU CHÍNH - NAVIGATION */
 .menu-nav {
-    flex: 1;
     position: relative;
 }
 
 .menu-nav .nav {
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 10px;
     list-style: none;
-    margin: 0 0 0 20px;
+    
     padding: 0;
+    flex-wrap: nowrap !important;
+    width: max-content;
 }
 
 .menu-nav .nav-item {
     position: relative;
 }
+
 
 /* Menu cha – chữ đậm hơn, không đổi màu khi hover */
 .menu-nav .nav-link {
@@ -361,6 +402,8 @@ body {
     display: inline-block;
     transition: color 0.3s ease;
     margin-left: 15px;
+    white-space: nowrap;
+
 }
 
 /* Giữ hiệu ứng gạch chân động cho menu cha */
@@ -368,10 +411,16 @@ body {
     content: '';
     position: absolute;
     left: 0;
-    bottom: 0;
+    bottom: -2px;
     height: 2px;
     width: 0;
-    background-color: black;
+    border-radius: 999px;
+    background:
+        linear-gradient(
+            90deg,
+            #5b3df5,
+            #7c3aed
+        );
     transition: width 0.3s ease;
 }
 
@@ -386,13 +435,17 @@ body {
     position: absolute;
     top: 120%;
     left: 0;
-    min-width: 220px;
-    background: #fff;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    border-radius: 6px;
-    padding: 10px 0;
-    z-index: 50;
+    min-width: 230px;
+    background:
+        rgba(255,255,255,0.92);
+    backdrop-filter: blur(14px);
+    border:
+        1px solid rgba(230,230,230,0.8);
+    box-shadow:
+        0 18px 40px rgba(91, 61, 245, 0.12);
+    border-radius: 20px;
+    padding: 12px 0;
+    z-index: 10000;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
@@ -442,14 +495,16 @@ body {
     align-items: center;
     gap: 22px;
     position: relative;
+    z-index: 10000;
 }
 
 .header-actions a,
 .header-actions label {
-    color: #111;
-    font-weight: 700;
+    color: #151515;
+    font-weight: 600;
     cursor: pointer;
     text-decoration: none;
+    transition: all 0.25s ease;
 }
 
 .header-actions i {
@@ -466,17 +521,26 @@ body {
 
 .cart-badge .badge {
     position: absolute;
-    top: -6px;
+    top: -8px;
     right: -10px;
-    background: #ff4d4d;
-    color: #fff;
-    font-size: 12px;
-    padding: 4px 7px;
-    border-radius: 50%;
+    background:
+        linear-gradient(
+            135deg,
+            #5b3df5,
+            #7c3aed
+        );
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 8px;
+    border-radius: 999px;
+    box-shadow:
+        0 4px 12px rgba(91, 61, 245, 0.3);
 }
 
 .account-dropdown {
     position: relative;
+    z-index: 10000;
 }
 
 #toggle-account {
@@ -486,7 +550,7 @@ body {
 .dropdown-menu-account {
     display: none;
     position: absolute;
-    top: 130%;
+    top: calc(100% + 10px);
     left: 0;
     background: #fff;
     border: 1px solid #eaeaea;
@@ -494,7 +558,7 @@ body {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     padding: 10px 0;
     min-width: 180px;
-    z-index: 50;
+    z-index: 10000;
 }
 
 .dropdown-menu-account a {

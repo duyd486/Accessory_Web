@@ -3,7 +3,7 @@
         <div class="footer-top container">
             <div class="footer-col">
                 <h4>📞 Liên hệ</h4>
-                <p>Liên hệ cho chúng tôi từ 8:00 AM to 6:00 PM<br><strong>01 234 567</strong></p>
+                <p>Liên hệ cho chúng tôi từ 8:00 AM to 6:00 PM<br><strong>012 345 678</strong></p>
             </div>
 
             <div class="footer-col">
@@ -14,14 +14,14 @@
 
             <div class="footer-col subscribe">
                 <h3>Hãy bắt đầu tìm hiểu</h3>
-                <p>Hãy nhận xét, tips, cập nhật, thúc đẩy và nhiều hơn nữa.</p>
+                <p>Theo dõi xu hướng công nghệ và ưu đãi mới từ Victory Store.</p>
             </div>
         </div>
 
         <div class="footer-middle container">
             <div class="footer-brand">
                 <h2 class="footer-logo">Victory Store<span>.</span></h2>
-                <p class="slogan">Lựa chọn mua đĩa nhạc tốt nhất</p>
+                <p class="slogan">Phụ kiện công nghệ chính hãng với trải nghiệm tốt nhất.</p>
                 <div class="socials">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
@@ -94,7 +94,7 @@
 }
 
 body {
-    font-family: "Outfit", Arial, sans-serif;
+    font-family: Inter, sans-serif;
     background: #fff;
 }
 
@@ -102,8 +102,8 @@ body {
 .footer {
     background: #fff;
     color: #222;
-    font-family: "Inter", sans-serif;
     border-top: 1px solid #eaeaea;
+    font-family: Inter, sans-serif;
 }
 
 .container {
