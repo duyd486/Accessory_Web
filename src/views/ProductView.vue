@@ -15,22 +15,29 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import ProductComponent from "@/components/ProductComponent.vue";
 import { useProductStore } from "@/stores/products";
-import { onMounted, watch } from "vue";
+import { watch } from "vue";
 import { useRoute } from "vue-router";
 
 const store = useProductStore();
 const route = useRoute();
 
-onMounted(() => {
-    const cat = route.query.category || null;
-    store.setCategory(cat);
-});
+function normalizeQueryValue(value) {
+    if (Array.isArray(value)) return value[0];
+    if (typeof value === "string") return value;
+    return null;
+}
 
 watch(
-    () => route.query.category,
-    (newVal) => {
-        store.setCategory(newVal || null);
-    }
+    () => [route.query.category, route.query.search_key],
+    async ([newCategory, newSearchKey]) => {
+        const cat = normalizeQueryValue(newCategory);
+        const key = normalizeQueryValue(newSearchKey);
+
+        store.selectedCategory = cat || null;
+        store.searchKey = key || null;
+        await store.fetchProducts(true);
+    },
+    { immediate: true }
 );
 </script>
 

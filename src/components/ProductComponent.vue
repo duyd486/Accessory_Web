@@ -192,30 +192,11 @@ export default {
 
     mounted() {
         const store = useProductStore()
-        store.fetchProducts(true)
-        if (this.$route.path !== '/product') {
-            const store = useProductStore()
-            if (!store.list.length) {
-                store.fetchProducts(true)
-            }
-        }
-    },
+        if (this.$route.path === '/product') return
 
-    watch: {
-        '$route.query.category'(newCategory) {
-            if (this.$route.path === '/product') {
-                const store = useProductStore()
-                store.setCategory(newCategory || null)
-            }
-        },
-        '$route.query.category'(newCategory) {
-            const store = useProductStore()
-            store.setCategory(newCategory || null)
-        },
-        '$route.query.search_key'(newKey) {
-            const store = useProductStore()
-            store.setSearchKey(newKey || null)
-        },
+        store.searchKey = null
+        store.selectedCategory = null
+        store.fetchProducts(true)
     },
 }
 </script>

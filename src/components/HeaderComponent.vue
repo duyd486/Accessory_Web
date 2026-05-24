@@ -8,14 +8,19 @@
             <div class="container-custom d-flex align-items-center justify-content-between">
                 <div v-on:click="goToHome()" class="navbar-brand text-decoration-none text-dark"
                     style="cursor: pointer">
-                    Victory Store <small>technology</small>
+                    Accessory Store <small>technology</small>
                 </div>
 
                 <div class="search-wrap">
                     <div class="search-box">
-                        <input type="text" placeholder="Tìm kiếm..." v-model="searchKey" />
+                        <input
+                            type="text"
+                            placeholder="Tìm kiếm..."
+                            v-model="searchKey"
+                            @keyup.enter="submitSearch"
+                        />
                     </div>
-                    <button class="btn-search">
+                    <button class="btn-search" @click="submitSearch">
                         <i class="bi bi-search"></i>
                     </button>
                 </div>
@@ -54,7 +59,7 @@
                         <a href="#" class="d-flex align-items-center text-decoration-none">
                             <i class="bi bi-cart"></i> Giỏ hàng
                         </a>
-                        <span class="badge">{{ cartCount }}</span>
+                        <span class="badge">{{ cartStore.totalItems }}</span>
                     </div>
                 </div>
             </div>
@@ -95,21 +100,72 @@
 import { apiHelper } from '@/helpers/axios'
 import { useCategoriesStore } from '@/stores/categories'
 import { mapStores } from 'pinia'
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useProductStore } from '@/stores/products'
+import { useCartStore } from '@/stores/cart'
+import { useRoute, useRouter } from 'vue-router'
 
 const searchKey = ref('')
 const productStore = useProductStore()
+const router = useRouter()
+const route = useRoute()
+
+function normalizeQueryValue(value) {
+    if (Array.isArray(value)) return value[0]
+    if (typeof value === 'string') return value
+    return ''
+}
+
+function syncSearchKeyFromRoute() {
+    if (route.path !== '/product') return
+    const routeKey = normalizeQueryValue(route.query.search_key)
+    if (searchKey.value !== routeKey) {
+        searchKey.value = routeKey
+    }
+}
+
+async function submitSearch() {
+    const key = (searchKey.value || '').trim()
+
+    productStore.selectedCategory = null
+    await productStore.setSearchKey(key || null)
+
+    await router.push({
+        name: 'Product',
+        query: key ? { search_key: key } : {},
+    })
+}
 
 let debounceTimeout = null
 watch(searchKey, (newVal) => {
+    if (route.path !== '/product') return
+
     clearTimeout(debounceTimeout)
     debounceTimeout = setTimeout(() => {
-        productStore.setSearchKey(newVal || null)
+        const key = (newVal || '').trim()
+
+        productStore.setSearchKey(key || null)
         productStore.selectedCategory = null
-        window.history.replaceState(null, '', `/product?search_key=${encodeURIComponent(newVal)}`)
+        const currentRouteKey = normalizeQueryValue(route.query.search_key)
+        if (currentRouteKey !== key) {
+            router.replace({
+                name: 'Product',
+                query: key ? { search_key: key } : {},
+            })
+        }
     }, 300)
 })
+
+onMounted(() => {
+    syncSearchKeyFromRoute()
+})
+
+watch(
+    () => route.query.search_key,
+    () => {
+        syncSearchKeyFromRoute()
+    }
+)
 </script>
 
 <script>
@@ -117,7 +173,6 @@ export default {
     data() {
         return {
             token: sessionStorage.getItem('token'),
-            cartCount: JSON.parse(localStorage.getItem('cart') || '[]').length,
         }
     },
     created() { },
@@ -125,6 +180,7 @@ export default {
     watch: {},
     computed: {
         ...mapStores(useCategoriesStore),
+        ...mapStores(useCartStore),
     },
     methods: {
         logout() {
@@ -387,6 +443,7 @@ body {
 }
 
 .menu-nav .nav-item {
+    cursor: pointer;
     position: relative;
 }
 
@@ -432,6 +489,7 @@ body {
 /* Dropdown menu */
 .dropdown-menu {
     display: none;
+    cursor: pointer;
     position: absolute;
     top: 120%;
     left: 0;
