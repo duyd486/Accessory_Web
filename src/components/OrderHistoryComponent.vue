@@ -222,31 +222,34 @@ export default {
 </script>
 
 <style scoped>
-.order-status {
-    font-weight: 600;
-    font-size: 14px;
-    padding: 6px 12px;
-    border-radius: 6px;
+.content-box {
+    background: #fff;
+    border: 1px solid rgba(230,230,230,0.8);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow:
+        0 10px 30px rgba(91, 61, 245, 0.05);
+    font-family: Segoe UI, sans-serif;
+    font-weight: 400;
 }
 
-.order-status.paid {
-    background: #e0f3e0;
-    color: #1b8e1b;
-}
-
+/* Tabs */
 .order-tabs {
     list-style: none;
     padding: 0;
-    border-bottom: 1px solid #ddd;
+    margin: 0 0 28px 0;
+    border-bottom: 1px solid #eee;
+    gap: 10px;
 }
 
 .order-tabs li {
-    padding: 10px 18px;
+    padding: 12px 18px;
     cursor: pointer;
-    margin-right: 12px;
     color: #777;
-    border-bottom: 3px solid transparent;
-    transition: 0.2s;
+    border-bottom: 2px solid transparent;
+    font-weight: 500;
+    transition: all .25s ease;
+    position: relative;
 }
 
 .order-tabs li:hover {
@@ -254,42 +257,120 @@ export default {
 }
 
 .order-tabs li.active {
-    color: #3449ca;
+    color: #5b3df5;
     font-weight: 600;
-    border-bottom: 3px solid #3449ca;
 }
 
-.order-status.status-direct {
-    background: #ffe8cc;
-    color: #c76a00;
+.order-tabs li.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(
+        90deg,
+        #5b3df5,
+        #7c3aed
+    );
 }
 
-.order-status.status-shipping {
-    background: #e0ecff;
-    color: #1f57c3;
+/* Order Card */
+.order-wrapper {
+    border-radius: 18px !important;
+    border: 1px solid rgba(230,230,230,0.8) !important;
+    transition: all .25s ease;
+    background: #fff;
 }
 
-.order-status.status-completed {
-    background: #dcfbe6;
-    color: #128a41;
+.order-wrapper:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 12px 30px rgba(91, 61, 245, 0.08);
 }
 
-.gap-2 {
-    gap: 8px;
+/* Product Box */
+.order-item {
+    border-radius: 16px !important;
+    border: 1px solid #f1f1f1 !important;
+    background: #fafafa;
 }
 
+/* Thumbnail */
 .category-thumb {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     object-fit: cover;
-    border-radius: 6px;
-    border: 1px solid #ddd;
+    border-radius: 10px;
+    border: 1px solid #eee;
 }
 
 .image-rounded {
-    width: 90px;
-    height: 90px;
+    width: 95px;
+    height: 95px;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 14px;
+    border: 1px solid #eee;
+}
+
+/* Status */
+.order-status {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: 999px;
+    letter-spacing: .4px;
+}
+
+.order-status.paid {
+    background: #e7f8ea;
+    color: #1c9b45;
+}
+
+.order-status.status-direct {
+    background: #fff2de;
+    color: #d07b00;
+}
+
+.order-status.status-shipping {
+    background: #e8f0ff;
+    color: #3167d6;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 12px !important;
+    font-weight: 500;
+    padding: 8px 14px;
+    transition: all .25s ease;
+}
+
+.btn-outline-primary {
+    border-color: #5b3df5 !important;
+    color: #5b3df5 !important;
+}
+
+.btn-outline-primary:hover {
+    background: #5b3df5 !important;
+    color: #fff !important;
+}
+
+.btn-outline-secondary:hover {
+    background: #111 !important;
+    color: #fff !important;
+}
+
+/* Product name */
+.order-item h6 {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #111;
+}
+
+/* Price */
+.text-danger {
+    color: #e53935 !important;
+    font-size: 18px;
 }
 </style>

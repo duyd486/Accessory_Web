@@ -116,20 +116,61 @@ const emit = defineEmits(['updated-user']);
 <style scoped>
 .content-box {
     border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 25px;
+    border-radius: 20px;
+    padding: 32px;
     background: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+
+.content-box h5 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #151515;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    color: #333;
+}
+
+.form-control {
+    height: 52px;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+    padding: 0 18px;
+    font-size: 15px;
+    transition: all 0.25s ease;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    border-color: #5b3df5;
+    box-shadow:
+        0 0 0 4px rgba(91, 61, 245, 0.12);
 }
 
 .btn-save {
-    background: #3449ca;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(
+        135deg,
+        #5b3df5,
+        #7c3aed
+    );
     color: #fff;
-    padding: 12px;
+    font-weight: 600;
     border: none;
-    transition: .25s ease;
+    transition: all 0.25s ease;
+    box-shadow:
+        0 10px 24px rgba(91,61,245,.22);
 }
 
 .btn-save:hover {
-    opacity: .8;
+    transform: translateY(-2px);
+    opacity: .95;
 }
 </style>

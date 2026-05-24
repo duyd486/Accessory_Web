@@ -19,7 +19,6 @@ const bannerImages = [
 /* Banner */
 .banner-section {
     width: 100%;
-    margin: 0 auto;
     padding: 0;
 }
 
@@ -28,9 +27,11 @@ const bannerImages = [
     width: 100%;
     height: 480px;
     overflow: hidden;
-    border-radius: 0;
+    border-radius: 30px;
     box-shadow: none;
     background-color: #f5f5f5;
+    position: relative;
+    z-index: 1;
 }
 
 .slides {

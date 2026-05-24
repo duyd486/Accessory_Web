@@ -2,7 +2,7 @@
     <HeaderComponent />
 
     <div class="body container py-5">
-        <h1 class="my-account">Thông tin tài khoản</h1>
+        <h1 class="my-account">THÔNG TIN TÀI KHOẢN</h1>
 
         <div class="row mt-4">
             <!-- LEFT NAV TABS -->
@@ -132,106 +132,143 @@ export default {
 
 <style scoped>
 body {
-    font-family: 'Outfit', Arial, sans-serif;
-    background: #fff;
+    font-family: Arial, sans-serif;
+    background: #fafafe;
 }
 
 .container {
-    max-width: 1050px;
+    max-width: 1150px;
     margin: auto;
-    padding: 0 20px 0 20px;
+    padding: 0 20px;
 }
 
 .my-account {
-    font-size: 40px;
-    font-weight: 700;
-    margin-bottom: 40px;
+    font-size: 32px;
+    font-weight: 900;
     text-align: center;
+    margin-bottom: 45px;
+    color: #151515;
 }
 
 /* Sidebar */
 .sidebar {
-    border: 1px solid #eee;
-    border-radius: 8px;
-    background: #ffffff;
-    padding-bottom: 10px;
+    background:
+        rgba(255,255,255,0.82);
+    backdrop-filter: blur(14px);
+
+    border:
+        1px solid rgba(230,230,230,0.8);
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 12px 35px rgba(91, 61, 245, 0.08);
 }
 
 /* User Info */
 .user-info {
-    border-bottom: 1px solid #eee;
+    padding: 24px !important;
+
+    border-bottom:
+        1px solid rgba(235,235,235,0.9);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(91,61,245,0.06),
+            rgba(124,58,237,0.03)
+        );
 }
 
+/* Avatar */
 .avatar-img {
-    width: 60px;
-    height: 60px;
+    width: 68px;
+    height: 68px;
     border-radius: 50%;
     object-fit: cover;
+
+    border: 3px solid #fff;
+
+    box-shadow:
+        0 8px 20px rgba(91, 61, 245, 0.18);
 }
 
-/* Text Hello + Username */
+/* Hello text */
 .hello-text {
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1.1;
-    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #777;
+    margin-bottom: 4px;
 }
 
+/* Username */
 .username {
-    font-size: 14px;
-    color: #666;
-    margin: 4px 0 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+    margin: 0;
 }
 
 /* Menu */
 .menu-list {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 12px;
 }
 
 .menu-list li {
-    padding: 14px 20px;
-    border-top: 1px solid #eee;
-    cursor: pointer;
-    font-size: 15px;
-    color: #777;
     position: relative;
-    font-weight: 400;
+
+    display: flex;
+    align-items: center;
+
+    padding: 14px 18px;
+
+    margin-bottom: 8px;
+
+    border-radius: 16px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    color: #666;
+
     transition: all .25s ease;
 }
 
-/* Effect highlight trái */
-.menu-list li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 0;
-    background: #3449ca;
-    transition: width .25s ease;
-}
-
-/* Hover effect */
+/* Hover */
 .menu-list li:hover {
-    color: #111;
-    font-weight: 600;
-    background: #f8f8f8;
-}
+    background:
+        rgba(91, 61, 245, 0.08);
 
-.menu-list li:hover::before {
-    width: 4px;
+    color: #5b3df5;
+
+    transform: translateX(3px);
 }
 
 /* Active */
 .menu-list li.active {
-    background: #3449ca;
-    color: #fff;
+    background:
+        linear-gradient(
+            135deg,
+            #5b3df5,
+            #7c3aed
+        );
+
+    color: white;
+
     font-weight: 600;
+
+    box-shadow:
+        0 10px 24px rgba(91, 61, 245, 0.22);
 }
 
-.menu-list li.active:hover {
-    background: #3449ca;
+/* Remove old effect */
+.menu-list li::before {
+    display: none;
 }
 </style>
