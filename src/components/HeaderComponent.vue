@@ -1,9 +1,5 @@
 <template>
     <div id="header">
-        <div class="header-top">
-            Nhanh tay! Giảm giá đến 60% – Số lượng có hạn! <a href="#"> Mua ngay</a>
-        </div>
-
         <div class="main-header">
             <div class="container-custom d-flex align-items-center justify-content-between">
                 <div v-on:click="goToHome()" class="navbar-brand text-decoration-none text-dark"
@@ -57,7 +53,7 @@
 
                     <div v-on:click="goToCart()" class="cart-badge">
                         <a href="#" class="d-flex align-items-center text-decoration-none">
-                            <i class="bi bi-cart"></i> Giỏ hàng
+                            <i class="bi bi-cart"></i>
                         </a>
                         <span class="badge">{{ cartStore.totalItems }}</span>
                     </div>
@@ -73,24 +69,26 @@
                     <div v-on:click="goToAboutUs()" class="title">Giới thiệu</div>
                 </a>
 
-                <nav class="menu-nav">
-                    <ul class="nav">
-                        <li v-for="category in categoriesStore.listCategory" :key="category.id"
-                            class="nav-item has-dropdown">
-                            <a v-if="category.parent_id === 0" class="nav-link"
-                                @click.prevent="$router.push('/product?category=' + category.id)">
-                                {{ category.title }}
-                            </a>
+                <div class="menu-nav-scroll">
+                    <nav class="menu-nav">
+                        <ul class="nav">
+                            <li v-for="category in categoriesStore.listCategory" :key="category.id"
+                                class="nav-item has-dropdown">
+                                <a v-if="category.parent_id === 0" class="nav-link"
+                                    @click.prevent="$router.push('/product?category=' + category.id)">
+                                    {{ category.title }}
+                                </a>
 
-                            <ul class="dropdown-menu">
-                                <li v-for="child in category.children" :key="child.id">
-                                    <a @click.prevent="$router.push('/product?category=' + child.id)">{{ child.title
-                                    }}</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
+                                <ul class="dropdown-menu">
+                                    <li v-for="child in category.children" :key="child.id">
+                                        <a @click.prevent="$router.push('/product?category=' + child.id)">{{ child.title
+                                        }}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
@@ -385,7 +383,29 @@ body {
     align-items: center;
     gap: 10px;
     position: relative;
-  
+    min-width: 0;
+}
+
+.menu-nav-scroll {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge legacy */
+    padding-bottom: 260px;
+    margin-bottom: -260px;
+    pointer-events: none;
+}
+
+.menu-nav-scroll > .menu-nav,
+.menu-nav-scroll > .menu-nav * {
+    pointer-events: auto;
+}
+
+.menu-nav-scroll::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
 }
 
 /* Shop Category (Giới thiệu) */
@@ -434,7 +454,7 @@ body {
 .menu-nav .nav {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     list-style: none;
     
     padding: 0;
@@ -445,6 +465,9 @@ body {
 .menu-nav .nav-item {
     cursor: pointer;
     position: relative;
+    display: flex;
+    align-items: center;
+    height: 50px;
 }
 
 
@@ -455,10 +478,11 @@ body {
     font-weight: 600;
     /* Đậm hơn */
     text-decoration: none;
-    padding: 10px 0;
-    display: inline-block;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
     transition: color 0.3s ease;
-    margin-left: 15px;
     white-space: nowrap;
 
 }
@@ -491,7 +515,7 @@ body {
     display: none;
     cursor: pointer;
     position: absolute;
-    top: 120%;
+    top: 140%;
     left: 0;
     min-width: 230px;
     background:

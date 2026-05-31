@@ -1,7 +1,9 @@
 <template>
     <div class="slider">
         <div class="slides" :style="{ transform: `translateX(${-index * 100}%)` }">
-            <img v-for="(img, i) in images" :key="i" :src="img" alt="Banner" />
+            <div v-for="(img, i) in images" :key="i" class="slide">
+                <img :src="img" alt="Banner" />
+            </div>
         </div>
 
         <!-- Dots -->
@@ -63,12 +65,20 @@ function prevSlide() {
     display: flex;
     width: 100%;
     transition: transform 0.6s ease-in-out;
+    height: 100%;
+    will-change: transform;
+}
+
+.slide {
+    flex: 0 0 100%;
+    height: 100%;
 }
 
 .slides img {
     width: 100%;
     height: 480px;
     object-fit: cover;
+    display: block;
 }
 
 .slider-dots {

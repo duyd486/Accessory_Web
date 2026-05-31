@@ -3,24 +3,24 @@
         <div class="footer-top container">
             <div class="footer-col">
                 <h4>📞 Liên hệ</h4>
-                <p>Liên hệ cho chúng tôi từ 8:00 AM to 6:00 PM<br><strong>012 345 678</strong></p>
+                <p>Liên hệ cho chúng tôi từ 8:00 AM to 6:00 PM<br><strong>0328910102</strong></p>
             </div>
 
             <div class="footer-col">
                 <h4>✉️ Email</h4>
                 <p>Chúng tôi sẽ phản hồi sau 1-3 ngày làm việc</p>
-                <p>nguyengoc0315@gmail.com</p>
+                <p>duyd3645@gmail.com</p>
             </div>
 
             <div class="footer-col subscribe">
                 <h3>Hãy bắt đầu tìm hiểu</h3>
-                <p>Theo dõi xu hướng công nghệ và ưu đãi mới từ Victory Store.</p>
+                <p>Theo dõi xu hướng công nghệ và ưu đãi mới từ Accessory Store.</p>
             </div>
         </div>
 
         <div class="footer-middle container">
             <div class="footer-brand">
-                <h2 class="footer-logo">Victory Store<span>.</span></h2>
+                <h2 class="footer-logo">Accessory Store<span>.</span></h2>
                 <p class="slogan">Phụ kiện công nghệ chính hãng với trải nghiệm tốt nhất.</p>
                 <div class="socials">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -80,7 +80,7 @@
             </div>
         </div>
 
-        <p class="footer-copy">© 2025 Victory, All rights reserved.</p>
+        <p class="footer-copy">© 2025 Accessory Store, All rights reserved.</p>
     </footer>
 </template>
 

@@ -53,7 +53,11 @@
             <div class="row text-center g-4 justify-content-center">
                 <div v-for="category in categoriesStore.listCategory" :key="category.id"
                     class="col-lg-2 col-md-3 col-sm-4 col-6">
-                    <div class="category-item">
+                    <router-link
+                        class="category-item"
+                        :to="{ path: '/product', query: { category: category.id } }"
+                        :aria-label="`Xem danh mục ${category.title}`"
+                    >
                         <img v-if="category.thumbnail_url" :src="category.thumbnail_url"
                             @error="category.thumbnail_url = null" :alt="category.title"
                             class="rounded-circle img-fluid mb-2" />
@@ -61,15 +65,15 @@
                             class="rounded-circle img-fluid mb-2" />
 
                         <p style="font-weight: bold">{{ category.title }}</p>
-                    </div>
+                    </router-link>
                 </div>
                 <!-- Giữ nguyên category cuối -->
-                <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-                    <div class="category-item">
+                <!-- <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                    <router-link class="category-item" to="/product" aria-label="Xem tất cả danh mục">
                         <img src="../assets/chamcham.png" alt="Headphones" class="rounded-circle img-fluid mb-2" />
                         <p style="font-weight: bold">More</p>
-                    </div>
-                </div>
+                    </router-link>
+                </div> -->
             </div>
         </div>
     </div>
@@ -856,6 +860,10 @@ body {
     background: white;
     border-radius: 24px;
     padding: 24px 16px;
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
     transition: all 0.3s ease;
     box-shadow:
         0 8px 24px rgba(91, 61, 245, 0.06);

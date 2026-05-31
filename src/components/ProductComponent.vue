@@ -1,7 +1,7 @@
 <template>
     <div class="product-section">
         <div class="section-header d-flex justify-content-between align-items-center mb-4">
-            <h4 v-if="showTitle" class="fw-bold">Khám phá sản phẩm</h4>
+            <h5 v-if="showTitle" class="fw-bold">Khám phá sản phẩm</h5>
 
             <div v-if="showSortType" class="sort-container">
                 <label for="sort" class="me-2 fw-semibold">Sắp xếp theo:</label>

@@ -2,6 +2,9 @@
     <HeaderComponent />
     <div class="best-seller container mt-5">
         <div class="section-header d-flex justify-content-between align-items-center mb-4">
+            <h4 v-if="selectedCategoryTitle" class="fw-bold mb-0">
+                Danh mục: {{ selectedCategoryTitle }}
+            </h4>
         </div>
 
         <ProductComponent :showSeeMore="true" />
@@ -15,10 +18,12 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import ProductComponent from "@/components/ProductComponent.vue";
 import { useProductStore } from "@/stores/products";
-import { watch } from "vue";
+import { computed, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
+import { useCategoriesStore } from "@/stores/categories";
 
 const store = useProductStore();
+const categoriesStore = useCategoriesStore();
 const route = useRoute();
 
 function normalizeQueryValue(value) {
@@ -26,6 +31,32 @@ function normalizeQueryValue(value) {
     if (typeof value === "string") return value;
     return null;
 }
+
+const selectedCategoryId = computed(() => normalizeQueryValue(route.query.category));
+
+const selectedCategoryTitle = computed(() => {
+    if (!selectedCategoryId.value) return null;
+    const targetId = String(selectedCategoryId.value);
+
+    const findTitle = (items) => {
+        for (const item of items || []) {
+            if (String(item.id) === targetId) return item.title;
+            if (item.children && item.children.length) {
+                const childTitle = findTitle(item.children);
+                if (childTitle) return childTitle;
+            }
+        }
+        return null;
+    };
+
+    return findTitle(categoriesStore.listCategory);
+});
+
+onMounted(() => {
+    if (!categoriesStore.listCategory || categoriesStore.listCategory.length === 0) {
+        categoriesStore.fetchListCategory();
+    }
+});
 
 watch(
     () => [route.query.category, route.query.search_key],

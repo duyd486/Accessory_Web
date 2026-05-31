@@ -4,12 +4,23 @@
     <div class="body container py-5">
         <div class="row g-5">
             <div class="col-md-6 text-center">
-                <img
-                    :src="product_detail.thumbnail_url"
-                    class="img-fluid rounded zoom-on-hover"
-                    :alt="product_detail.name"
-                    style="max-height: 500px; object-fit: contain"
-                />
+                <div class="product-image-wrap rounded">
+                    <img
+                        v-if="isValidThumbnail(product_detail.thumbnail_url)"
+                        :src="product_detail.thumbnail_url"
+                        class="img-fluid zoom-on-hover"
+                        :alt="product_detail.name"
+                        @error="product_detail.thumbnail_url = null"
+                        style="max-height: 500px; object-fit: contain"
+                    />
+                    <img
+                        v-else
+                        src="@/assets/default_thumbnail.jpg"
+                        class="img-fluid"
+                        alt="Default Image"
+                        style="max-height: 500px; object-fit: contain"
+                    />
+                </div>
             </div>
 
             <div class="col-md-6">
@@ -308,6 +319,13 @@ export default {
         ...mapStores(useCategoriesStore),
     },
     methods: {
+        isValidThumbnail(url) {
+            if (!url) return false
+            const value = String(url).trim().toLowerCase()
+            if (!value) return false
+            if (value === 'null' || value === 'undefined') return false
+            return true
+        },
         formatPrice(value) {
             if (value === null || value === undefined || value === '') return '0 đ'
             return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' đ'
@@ -543,11 +561,20 @@ body {
     /* mượt */
     cursor: pointer;
     /* optional, thấy tương tác */
+    transform-origin: center;
 }
 
 .zoom-on-hover:hover {
-    transform: scale(1.3);
-    /* phóng to 10% */
+    transform: scale(1.08);
+}
+
+.product-image-wrap {
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Ẩn nút tăng/giảm mặc định của input number trên mọi trình duyệt */
@@ -590,6 +617,7 @@ input[type='number']::-webkit-outer-spin-button {
     flex: 0 0 20%;
     max-width: 20%;
     position: relative;
+    padding-bottom: 120px;
 }
 
 @media (max-width: 991px) {
