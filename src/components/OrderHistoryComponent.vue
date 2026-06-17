@@ -15,33 +15,31 @@
         </ul>
 
         <div v-if="orderTab === 'preparing'">
-            <div v-for="(item, index) in orderPreparing" :key="index" class="order-wrapper p-3 border rounded mb-3">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="d-flex align-items-center">
-                        <img :src="item.category_thumbnail" class="category-thumb me-2" />
-                        <div class="me-3">
-                            <h5 class="mb-0">{{ item.category_title }}</h5>
-                        </div>
-                        <button class="btn btn-outline-primary btn-sm">Xem danh mục</button>
+            <div v-for="order in orderPreparing" :key="order.id" class="order-wrapper p-3 border rounded mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-3 gap-3 flex-wrap">
+                    <div>
+                        <h5 class="mb-1">Mã đơn: {{ order.order_code }}</h5>
+                        <p class="text-muted mb-0">{{ formatDate(order.created_at) }}</p>
                     </div>
 
-                    <span class="order-status" :class="item.bill_status === 3 ? 'paid' : 'status-direct'">
-                        {{ item.bill_status === 3 ? 'ĐÃ THANH TOÁN' : 'THANH TOÁN TRỰC TIẾP' }}
+                    <span class="order-status" :class="getStatusClass(order.status)">
+                        {{ getStatusLabel(order.status) }}
                     </span>
                 </div>
 
-                <div class="order-item d-flex p-3 border rounded">
-                    <img :src="item.product_thumbnail" class="image-rounded me-3" />
-
-                    <div class="flex-grow-1">
-                        <h6>{{ item.product_name }}</h6>
-                        <p class="text-muted">Danh mục: {{ item.category_title }}</p>
-                        <p>x{{ item.detail_quantity }}</p>
+                <div
+                    v-for="product in order.products"
+                    :key="product.product_id"
+                    class="order-item d-flex p-3 border rounded mb-2"
+                >
+                    <div class="grow">
+                        <h6>{{ product.product_name }}</h6>
+                        <p class="text-muted mb-0">Số lượng: x{{ product.quantity }}</p>
                     </div>
 
                     <div class="text-end">
-                        <p class="text-danger fw-bold">
-                            {{ (item.product_price * item.detail_quantity).toLocaleString() }}đ
+                        <p class="text-danger fw-bold mb-0">
+                            {{ Number(product.total_price || 0).toLocaleString() }}đ
                         </p>
                     </div>
                 </div>
@@ -49,31 +47,29 @@
         </div>
 
         <div v-if="orderTab === 'shipping'">
-            <div v-for="(item, index) in orderShipping" :key="index" class="order-wrapper p-3 border rounded mb-3">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="d-flex align-items-center">
-                        <img :src="item.category_thumbnail" class="category-thumb me-2" />
-                        <div class="me-3">
-                            <h5 class="mb-0">{{ item.category_title }}</h5>
-                        </div>
-                        <button class="btn btn-outline-primary btn-sm">Xem danh mục</button>
+            <div v-for="order in orderShipping" :key="order.id" class="order-wrapper p-3 border rounded mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-3 gap-3 flex-wrap">
+                    <div>
+                        <h5 class="mb-1">Mã đơn: {{ order.order_code }}</h5>
+                        <p class="text-muted mb-0">{{ formatDate(order.created_at) }}</p>
                     </div>
 
-                    <span class="order-status status-shipping">ĐANG GIAO</span>
+                    <span class="order-status status-shipping">{{ getStatusLabel(order.status) }}</span>
                 </div>
 
-                <div class="order-item d-flex p-3 border rounded">
-                    <img :src="item.product_thumbnail" class="image-rounded me-3" />
-
-                    <div class="flex-grow-1">
-                        <h6>{{ item.product_name }}</h6>
-                        <p class="text-muted">Danh mục: {{ item.category_title }}</p>
-                        <p>x{{ item.detail_quantity }}</p>
+                <div
+                    v-for="product in order.products"
+                    :key="product.product_id"
+                    class="order-item d-flex p-3 border rounded mb-2"
+                >
+                    <div class="grow">
+                        <h6>{{ product.product_name }}</h6>
+                        <p class="text-muted mb-0">Số lượng: x{{ product.quantity }}</p>
                     </div>
 
                     <div class="text-end">
-                        <p class="text-danger fw-bold">
-                            {{ (item.product_price * item.detail_quantity).toLocaleString() }}đ
+                        <p class="text-danger fw-bold mb-0">
+                            {{ Number(product.total_price || 0).toLocaleString() }}đ
                         </p>
                     </div>
                 </div>
@@ -81,37 +77,35 @@
         </div>
 
         <div v-if="orderTab === 'completed'">
-            <div v-for="(item, index) in orderCompleted" :key="index" class="order-wrapper p-3 border rounded mb-3">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="d-flex align-items-center">
-                        <img :src="item.category_thumbnail" class="category-thumb me-2" />
-                        <div class="me-3">
-                            <h5 class="mb-0">{{ item.category_title }}</h5>
-                        </div>
-                        <button class="btn btn-outline-primary btn-sm">Xem danh mục</button>
+            <div v-for="order in orderCompleted" :key="order.id" class="order-wrapper p-3 border rounded mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-3 gap-3 flex-wrap">
+                    <div>
+                        <h5 class="mb-1">Mã đơn: {{ order.order_code }}</h5>
+                        <p class="text-muted mb-0">{{ formatDate(order.created_at) }}</p>
                     </div>
 
-                    <span class="order-status paid">HOÀN THÀNH</span>
+                    <span class="order-status paid">{{ getStatusLabel(order.status) }}</span>
                 </div>
 
-                <div class="order-item d-flex p-3 border rounded">
-                    <img :src="item.product_thumbnail" class="image-rounded me-3" />
-
-                    <div class="flex-grow-1">
-                        <h6>{{ item.product_name }}</h6>
-                        <p class="text-muted">Danh mục: {{ item.category_title }}</p>
-                        <p>x{{ item.detail_quantity }}</p>
+                <div
+                    v-for="product in order.products"
+                    :key="product.product_id"
+                    class="order-item d-flex p-3 border rounded mb-2"
+                >
+                    <div class="grow">
+                        <h6>{{ product.product_name }}</h6>
+                        <p class="text-muted mb-0">Số lượng: x{{ product.quantity }}</p>
                     </div>
 
                     <div class="text-end">
-                        <p class="text-danger fw-bold">
-                            {{ (item.product_price * item.detail_quantity).toLocaleString() }}đ
+                        <p class="text-danger fw-bold mb-2">
+                            {{ Number(product.total_price || 0).toLocaleString() }}đ
                         </p>
                         <div class="d-flex gap-2 justify-content-end">
-                            <button class="btn btn-outline-secondary btn-sm" @click="openFeedback(item.bill_id)">
+                            <button class="btn btn-outline-secondary btn-sm" @click="openFeedback(order.id)">
                                 Đánh giá
                             </button>
-                            <button class="btn btn-outline-primary btn-sm" @click="buyNow(item)">
+                            <button class="btn btn-outline-primary btn-sm" @click="buyAgain(product)">
                                 Mua lại
                             </button>
                         </div>
@@ -126,11 +120,19 @@
 
 <script>
 import { apiHelper } from '@/helpers/axios'
-// 1. IMPORT COMPONENT
 import BillReviewModal from './BillReviewModal.vue'
 
+const ORDER_STATUS = {
+    CANCELLED: 0,
+    PROCESSING: 1,
+    PENDING: 2,
+    PAID: 3,
+    PREPARING: 4,
+    SHIPPING: 5,
+    DONE: 6,
+}
+
 export default {
-    // 2. REGISTER COMPONENT
     components: {
         BillReviewModal
     },
@@ -141,7 +143,6 @@ export default {
             orderShipping: [],
             orderCompleted: [],
 
-            // 3. KHAI BÁO BIẾN STATE
             showFeedbackModal: false,
             selectedBillId: null
         }
@@ -175,14 +176,16 @@ export default {
                 const token = sessionStorage.getItem('token')
                 if (!token) return
 
-                const res = await apiHelper.get('/order-history', {
+                const res = await apiHelper.get('orders/order-history', {
                     headers: { Authorization: `Bearer ${token}` },
                 })
 
-                if (res.status === 200 && res.data?.data) {
-                    this.orderPreparing = res.data.data.orderPreparing || []
-                    this.orderShipping = res.data.data.orderShipping || []
-                    this.orderCompleted = res.data.data.orderCompleted || []
+                const orders = res.data?.data || []
+
+                if (res.status === 200) {
+                    this.orderPreparing = orders.filter(order => [ORDER_STATUS.PROCESSING, ORDER_STATUS.PENDING, ORDER_STATUS.PAID, ORDER_STATUS.PREPARING].includes(order.status))
+                    this.orderShipping = orders.filter(order => order.status === ORDER_STATUS.SHIPPING)
+                    this.orderCompleted = orders.filter(order => order.status === ORDER_STATUS.DONE)
                 }
             } catch (error) {
                 console.error(error)
@@ -209,13 +212,72 @@ export default {
             this.$router.push('/checkout')
         },
 
+        buyAgain(product) {
+            const token = sessionStorage.getItem('token')
+
+            if (!token) {
+                alert('Bạn cần đăng nhập để mua hàng!')
+                return
+            }
+
+            const quantity = Math.max(Number(product.quantity || 1), 1)
+            const unitPrice = Math.round(Number(product.total_price || 0) / quantity)
+
+            const payload = {
+                id: product.product_id,
+                name: product.product_name,
+                price: unitPrice,
+                thumbnail_url: '',
+                quantity: 1,
+            }
+
+            localStorage.setItem('checkout_items', JSON.stringify([payload]))
+            this.$router.push('/checkout')
+        },
+
         openFeedback(billId) {
             if (!billId) {
-                console.error("Không tìm thấy Bill ID trong dữ liệu đơn hàng");
-                return;
+                console.error('Không tìm thấy Bill ID trong dữ liệu đơn hàng')
+                return
             }
-            this.selectedBillId = billId;
-            this.showFeedbackModal = true;
+            this.selectedBillId = billId
+            this.showFeedbackModal = true
+        },
+
+        getStatusLabel(status) {
+            switch (status) {
+                case ORDER_STATUS.CANCELLED:
+                    return 'ĐÃ HỦY'
+                case ORDER_STATUS.PROCESSING:
+                    return 'ĐANG XỬ LÝ'
+                case ORDER_STATUS.PENDING:
+                    return 'CHỜ THANH TOÁN'
+                case ORDER_STATUS.PAID:
+                    return 'ĐÃ THANH TOÁN'
+                case ORDER_STATUS.PREPARING:
+                    return 'ĐANG CHUẨN BỊ'
+                case ORDER_STATUS.SHIPPING:
+                    return 'ĐANG GIAO'
+                case ORDER_STATUS.DONE:
+                    return 'HOÀN THÀNH'
+                default:
+                    return 'KHÔNG XÁC ĐỊNH'
+            }
+        },
+
+        getStatusClass(status) {
+            if (status === ORDER_STATUS.SHIPPING) return 'status-shipping'
+            if (status === ORDER_STATUS.DONE || status === ORDER_STATUS.PAID) return 'paid'
+            return 'status-direct'
+        },
+
+        formatDate(value) {
+            if (!value) return ''
+
+            return new Date(value).toLocaleString('vi-VN', {
+                dateStyle: 'short',
+                timeStyle: 'short',
+            })
         }
     },
 }
@@ -295,23 +357,6 @@ export default {
     border-radius: 16px !important;
     border: 1px solid #f1f1f1 !important;
     background: #fafafa;
-}
-
-/* Thumbnail */
-.category-thumb {
-    width: 42px;
-    height: 42px;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 1px solid #eee;
-}
-
-.image-rounded {
-    width: 95px;
-    height: 95px;
-    object-fit: cover;
-    border-radius: 14px;
-    border: 1px solid #eee;
 }
 
 /* Status */

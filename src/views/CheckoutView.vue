@@ -175,6 +175,7 @@ export default {
                     email: this.customer.email,
                     phone: this.customer.phone,
                     address: this.customer.address,
+                    channelId: 3,
                     payment_method: this.paymentMethod,
                     items: orderItems,
                     total_price: this.totalValue
